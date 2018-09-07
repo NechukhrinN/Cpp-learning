@@ -16,7 +16,7 @@ string convert(unsigned char x)
 	do
 	{
 		string res_t("\0");
-		if ((x % 16 < 16) && (x / 16 <= 1)) res = res + "0";
+		if (x / 16 <= 1) res = res + "0";
 		while (x > 0)
 		{
 			res_t = alf_d[x % 16] + res_t;
