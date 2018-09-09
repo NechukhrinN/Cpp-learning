@@ -11,11 +11,9 @@ using namespace std;
 //Convert algorithm
 string convert(unsigned char x)
 {
-	string res("\0");	
-	string alf_d = "0123456789ABCDEF";
-	do
-	{
-		string res_t("\0");
+	static std::string alf_d = "0123456789ABCDEF";
+	std::string res;	
+	std::string res_t;
 		if (x / 16 <= 1) res = res + "0";
 		while (x > 0)
 		{
@@ -23,28 +21,26 @@ string convert(unsigned char x)
 			x /= 16;
 		}
 		res += res_t;
-	} while (x);
 	
 	return res;
 }
 
 //Convert function
-template <size_t N>
-string ToHex(int(&Array)[N])
+string ToHex(std::vector<int> v)
 {
 	string res = "";
-	for (int i = 0; i != N; ++i) res += convert(Array[i]);
+	for (vector<int>::iterator it = v.begin(); it != v.end(); ++it) res += convert(*it);
 	return res;
 }
 
 int main()
 {
 	//Test input
-	int m[4] = { 10, 1, 32, 255 };
-	for (int i = 0; i != sizeof(m) / sizeof(m[0]); ++i)
-		cout << m[i] << ' ';
+	std::vector<int> v = { 10, 1, 32, 255, 23, 45, 12, 67, 234};
+	for (vector<int>::iterator it = v.begin(); it!=v.end(); ++it)
+		cout << *it << ' ';
 	cout << endl;
-	string s = ToHex(m);
+	string s = ToHex(v);
 	cout << s << endl;
 
 	system("pause");
